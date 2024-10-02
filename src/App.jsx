@@ -33,8 +33,19 @@ function App() {
     }
   }
 
-const Deleteuser = async () =>{
+const Deleteuser = async (userId) =>{
+ // alert(userId);
+  const { data, error } = await 
+  supabase.from('user')
+  .delete().eq('id', userId);
 
+  if (error) {
+    console.error('Error adding user:', error.message);
+  } else {
+    console.log('User delete successfully:', data);
+   
+    getuser();
+}
 }
 
   const handleChange = (event) => {
@@ -78,8 +89,8 @@ const Deleteuser = async () =>{
                   <tr key={users.id}>
                     <td>{users.firstname}</td>
                     <td>{users.lastname}</td>
-                    <td><button className='btn btn-primary btn-sm'>Edit</button></td>
-                    <td><button className='btn btn-danger btn-sm' onClick={() =>{Deleteuser(user.id)}} >Delete</button></td>
+                    <td><button className='btn btn-primary btn-sm' >Edit</button></td>
+                    <td><button className='btn btn-danger btn-sm' onClick={() =>{Deleteuser(users.id)}} >Delete</button></td>
                   </tr>
                 )}
               </tbody>
