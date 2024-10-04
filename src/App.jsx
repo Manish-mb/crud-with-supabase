@@ -65,8 +65,10 @@ function App() {
     })
   }
 
-  const UpdateUser = async (userId) => {
+  const UpdateUser = async (event ,userId) => {
    
+    event.preventDefault();
+
       const { data ,error } = await
        supabase
       .from('user')
@@ -78,7 +80,13 @@ function App() {
       } else {
         console.log('User delete successfully:', data);
 
+        setUpdateuser({
+          firstname: "",
+          lastname: ""
+        });
+
         getuser();
+    
     }
   }
 
@@ -170,7 +178,7 @@ function App() {
         <div className='col-lg-4'>
           <div className="container p-5">
             <h4>Update User</h4>
-            <form onSubmit={() => UpdateUser(updateuser.id)}>
+            <form onSubmit={(event) => UpdateUser(event, updateuser.id)}>
               <div className="form-group">
                 <label >firstaname</label>
                 <input type="text"
